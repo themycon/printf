@@ -1,4 +1,9 @@
 #include "main.h"
+#include <unistd.h>
+#include <stddef.h>
+
+#define BUFFER_SIZE 1024
+
 
 void print_buffer(char buffer[], int *index_buffer);
 
