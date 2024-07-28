@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <stdarg.h>
 
+#define BUFFER_SIZE 1024
+
 void print_buffer(char buffer[], int *index_buffer);
 
 /**
@@ -13,8 +15,11 @@ void print_buffer(char buffer[], int *index_buffer);
 
 int _printf(const char *format, ...)
 {
-	int j, num_chars = 0;
 	va_list args;
+	char buffer[BUFFER_SIZE];
+	int index_buffer = 0;
+	int j = 0;
+	int num_chars = 0;
 
 	va_start(args, *format)
 
@@ -22,12 +27,13 @@ int _printf(const char *format, ...)
 	{
 		if (format[j] == '%')
 		{
+			print_buffer(buffer, &index_buffer);
 			j++;
 			if (format[j] == 'c')
 			{
 				char c = va_arg(args, int);
 
-				print_buffer(c);
+				buffer[index_buffer++] = c;
 				num_chars++;
 			}
 			else if (format[j] == 's')
@@ -36,25 +42,35 @@ int _printf(const char *format, ...)
 
 				while (*s)
 				{
-					print_buffer(*s);
-					s++;
+					buffer[index_buffer++] = *s++;
 					num_chars++;
 				}
 			}
 			else if (format[j] == '%')
 			{
-				print_buffer('%');
+				buffer[index_buffer++] = '%';
 				num_chars++;
+			}
+
+			if (index_buffer >= BUFFER_SIZE)
+			{
+				print_buffer(buffer, &index_buffer);
 			}
 		}
 		else
 		{
-			print_buffer(format[i]);
+			buffer[index_buffer++] = format[i];
 			num_chars++;
+
+			if (index_buffer >= BUFFER_SIZE)
+			{
+				print_buffer(buffer, &index_buffer);
+			}
 		}
 		j++;
 
 	}
+	print_buffer(buffer, &index_buffer);
 
 	va_end(args);
 
