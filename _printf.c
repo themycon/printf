@@ -21,7 +21,7 @@ int _printf(const char *format, ...)
 	int j = 0;
 	int num_chars = 0;
 
-	va_start(args, *format)
+	va_start(args, *format);
 
 	while (format && format[j])
 	{
@@ -38,7 +38,7 @@ int _printf(const char *format, ...)
 			}
 			else if (format[j] == 's')
 			{
-				char c = va_arg(args, char *)
+				char *s = va_arg(args, char *);
 
 				while (*s)
 				{
@@ -59,7 +59,7 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			buffer[index_buffer++] = format[i];
+			buffer[index_buffer++] = format[j];
 			num_chars++;
 
 			if (index_buffer >= BUFFER_SIZE)
