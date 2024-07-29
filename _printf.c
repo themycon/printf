@@ -42,22 +42,13 @@ int _printf(const char *format, ...)
 			{
 				char c = va_arg(args, int);
 
-				buffer[index_buffer++] = c;
-				num_chars++;
+				print_char(buffer, &index_buffer, c, &num_chars);
 			}
 			else if (format[j] == 's')
 			{
 				char *s = va_arg(args, char *);
 
-				if (s == NULL)
-				{
-					s = "(null)";
-				}
-				while (*s)
-				{
-					buffer[index_buffer++] = *s++;
-					num_chars++;
-				}
+				print_string(buffer, &index_buffer, s, &num_chars);
 			}
 			else if (format[j] == '%')
 			{
@@ -69,6 +60,12 @@ int _printf(const char *format, ...)
 				int n = va_arg(args, int);
 
 				print_int(buffer, &index_buffer, n, &num_chars);
+			}
+			else if (format[j] == 'b')
+			{
+				unsigned int n = va_arg(args, unsigned int);
+
+				print_binary(buffer, &index_buffer, n, &num_chars);
 			}
 			else
 			{
