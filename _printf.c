@@ -22,7 +22,10 @@ int _printf(const char *format, ...)
 	int j = 0;
 	int num_chars = 0;
 
-	va_start(args, *format);
+	if (format == NULL)
+		return (-1);
+
+	va_start(args, format);
 
 	while (format && format[j])
 	{
@@ -41,6 +44,10 @@ int _printf(const char *format, ...)
 			{
 				char *s = va_arg(args, char *);
 
+				if (s == NULL)
+				{
+					s = "(null)";
+				}
 				while (*s)
 				{
 					buffer[index_buffer++] = *s++;
