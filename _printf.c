@@ -4,11 +4,6 @@
 
 #define BUFFER_SIZE 1024
 
-
-void print_buffer(char buffer[], int *index_buffer);
-void print_int(char buffer[], int *index_buffer, int n, int *num_chars);
-void int_to_str(int n, char str[]);
-
 /**
 * _printf - prints on the screen
 * @format: string format.
