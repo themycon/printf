@@ -124,7 +124,7 @@ int _printf(const char *format, ...)
 /**
 * print_int - prints what is in the d and i specifiers
 * @buffer: buffer array
-* @index_buffer: current index of the buffer
+* @index_buffer: is the current index of the buffer
 * @n: the integer
 * @num_chars: pointer to the number of characters
 */
@@ -149,9 +149,9 @@ void print_int(char buffer[], int *index_buffer, int n, int *num_chars)
 }
 
 /**
-* int_to_str - converts intergers to string
+* int_to_str - converts intergers to a string
 * @n: the integer value
-* @str: buffer store the new string converted from integer
+* @str: buffer stores the new string converted from integer
 */
 
 void int_to_str(int n, char str[])
