@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
-* print_binary - Converts an unsigned int to binary and stores it in buffer
+* print_binary - Converts an unsigned int to binary and stores it in a buffer
 * @buffer: Buffer array to store the binary representation
 * @index_buffer: Current index in the buffer
-* @n: The unsigned int to convert
-* @num_chars: Pointer to the number of characters printed
+* @n: The unsigned int to be converted
+* @num_chars: Pointer to the number of characters that are printed
 */
 void print_binary(char buffer[], int *index_buffer, unsigned int n,
 		  int *num_chars)
