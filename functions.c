@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
-* print_binary - Converts an unsigned int to binary and stores in buffer
+* print_binary - Converts an unsigned int to binary and stores it in buffer
 * @buffer: Buffer array to store the binary representation
 * @index_buffer: Current index in the buffer
 * @n: The unsigned int to convert

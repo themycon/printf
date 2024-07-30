@@ -6,7 +6,7 @@
 * @index_buffer: Current index in the buffer
 * @n: The unsigned int to convert
 * @num_chars: Pointer to the number of characters printed
-* @uppercase: Flag to indicate if the output should be in uppercase
+* @uppercase: Flag to indicate whether the output should be in uppercase
 */
 
 void print_hex(char buffer[], int *index_buffer, unsigned int n,
