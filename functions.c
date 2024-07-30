@@ -7,7 +7,7 @@
 * @n: The unsigned int to convert
 * @num_chars: Pointer to the number of characters printed
 */
-void print_binary(char buffer[], int *index_buffer, unsigned int n, 
+void print_binary(char buffer[], int *index_buffer, unsigned int n,
 		  int *num_chars)
 {
 	char str[32];
@@ -72,6 +72,82 @@ void print_string(char buffer[], int *index_buffer, char *s, int *num_chars)
 	{
 		buffer[(*index_buffer)++] = *s++;
 		(*num_chars)++;
+		if (*index_buffer >= BUFFER_SIZE)
+		{
+			print_buffer(buffer, index_buffer);
+		}
+	}
+}
+
+/**
+* print_unsigned_int - converts an unsigned int to string
+* @buffer: Buffer array to store the string representation
+* @index_buffer: Current index in the buffer
+* @n: The unsigned int to convert
+* @num_chars: Pointer to the number of characters printed
+*/
+
+void print_unsigned_int(char buffer[], int *index_buffer, unsigned int n,
+			int *num_chars)
+{
+	char str[10];
+	int i = 0, j;
+
+	if (n == 0)
+	{
+		str[i++] = '0';
+	}
+	else
+	{
+		while (n > 0)
+		{
+			str[i++] = (n % 10) + '0';
+			n /= 10;
+		}
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		buffer[(*index_buffer)++] = str[j];
+		(*num_chars)++;
+
+		if (*index_buffer >= BUFFER_SIZE)
+		{
+			print_buffer(buffer, index_buffer);
+		}
+	}
+}
+
+/**
+* print_octal - Converts an unsigned int to octal
+* @buffer: Buffer array to store the octal representation
+* @index_buffer: Current index in the buffer
+* @n: The unsigned int to convert
+* @num_chars: Pointer to the number of characters printed
+*/
+
+void print_octal(char buffer[], int *index_buffer, unsigned int n,
+		 int *num_chars)
+{
+	char str[11];
+	int i = 0, j;
+
+	if (n == 0)
+	{
+		str[i++] = '0';
+	}
+	else
+	{
+		while (n > 0)
+		{
+			str[i++] = (n % 8) + '0';
+			n /= 8;
+		}
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		buffer[(*index_buffer)++] = str[j];
+		(*num_chars)++;
+
 		if (*index_buffer >= BUFFER_SIZE)
 		{
 			print_buffer(buffer, index_buffer);

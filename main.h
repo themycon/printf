@@ -15,6 +15,11 @@ void print_int(char buffer[], int *index_buffer, int n, int *num_chars);
 void int_to_str(int n, char str[]);
 void print_binary(char buffer[], int *index_buffer, unsigned int n,
 		  int *num_chars);
-
+void print_unsigned_int(char buffer[], int *index_buffer, unsigned int n,
+		    int *num_chars);
+void print_octal(char buffer[], int *index_buffer, unsigned int n,
+		 int *num_chars);
+void print_hex(char buffer[], int *index_buffer, unsigned int n,
+	       int *num_chars, int uppercase);
 
 #endif /* MAIN_H */

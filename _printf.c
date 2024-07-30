@@ -4,6 +4,10 @@
 
 #define BUFFER_SIZE 1024
 
+void print_buffer(char buffer[], int *index_buffer);
+void print_int(char buffer[], int *index_buffer, int n, int *num_chars);
+void int_to_str(int n, char str[]);
+
 /**
 * _printf - prints on the screen
 * @format: string format.
@@ -62,6 +66,30 @@ int _printf(const char *format, ...)
 
 				print_binary(buffer, &index_buffer, n, &num_chars);
 			}
+			else if (format[j] == 'u')
+			{
+				unsigned int n = va_arg(args, unsigned int);
+
+				print_unsigned_int(buffer, &index_buffer, n, &num_chars);
+			}
+			else if (format[j] == 'o')
+			{
+				unsigned int n = va_arg(args, unsigned int);
+
+				print_octal(buffer, &index_buffer, n, &num_chars);
+			}
+			else if (format[j] == 'x')
+			{
+				unsigned int n = va_arg(args, unsigned int);
+
+				print_hex(buffer, &index_buffer, n, &num_chars, 0);
+			}
+			else if (format[j] == 'X')
+			{
+				unsigned int n = va_arg(args, unsigned int);
+
+				print_hex(buffer, &index_buffer, n, &num_chars, 1);
+			}
 			else
 			{
 				buffer[index_buffer++] = '%';
@@ -91,7 +119,6 @@ int _printf(const char *format, ...)
 	va_end(args);
 
 	return (num_chars);
-
 }
 
 /**
