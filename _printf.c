@@ -167,10 +167,14 @@ void print_int(char buffer[], int *index_buffer, int n,
 	if (n >= 0)
 	{
 		if (plus_flag)
+		{
 			buffer[(*index_buffer)++] = '+';
+		}
 		else if (space_flag)
+		{
 			buffer[(*index_buffer)++] = ' ';
-		(*num_chars)++;
+			(*num_chars)++;
+		}
 	}
 
 	for (k = 0; str[k]; k++)
