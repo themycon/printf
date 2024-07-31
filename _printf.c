@@ -90,6 +90,12 @@ int _printf(const char *format, ...)
 
 				print_hex(buffer, &index_buffer, n, &num_chars, 1);
 			}
+			else if (format[j] == 'S')
+			{
+				char *str = va_arg(args, char *);
+
+				print_special_string(buffer, &index_buffer, str, &num_chars);
+			}
 			else
 			{
 				buffer[index_buffer++] = '%';

@@ -21,5 +21,11 @@ void print_octal(char buffer[], int *index_buffer, unsigned int n,
 		 int *num_chars);
 void print_hex(char buffer[], int *index_buffer, unsigned int n,
 	       int *num_chars, int uppercase);
+void print_special_string(char buffer[], int *index_buffer, const char *str,
+			  int *num_chars);
+void printing_hex_for_special_string(char buffer[], int *index_buffer, 
+				      unsigned int n, int *num_chars, int uppercase);
+
+
 
 #endif /* MAIN_H */
