@@ -96,6 +96,12 @@ int _printf(const char *format, ...)
 
 				print_special_string(buffer, &index_buffer, str, &num_chars);
 			}
+			else if (format[j] == 'p')
+			{
+				void *ptr = va_arg(args, void *);
+
+				print_pointer(buffer, &index_buffer, ptr, &num_chars);
+			}
 			else
 			{
 				buffer[index_buffer++] = '%';

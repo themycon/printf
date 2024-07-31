@@ -23,9 +23,10 @@ void print_hex(char buffer[], int *index_buffer, unsigned int n,
 	       int *num_chars, int uppercase);
 void print_special_string(char buffer[], int *index_buffer, const char *str,
 			  int *num_chars);
-void printing_hex_for_special_string(char buffer[], int *index_buffer, 
+void printing_hex_for_special_string(char buffer[], int *index_buffer,
 				      unsigned int n, int *num_chars, int uppercase);
-
+void print_pointer(char buffer[], int *index_buffer, void *ptr,
+		   int *num_chars);
 
 
 #endif /* MAIN_H */

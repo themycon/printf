@@ -137,3 +137,54 @@ void printing_hex_for_special_string(char buffer[], int *index_buffer,
 		}
 	}
 }
+
+/**
+* print_pointer - prints hexadecimal for special strings
+* @buffer: buffer to hold the string before printing
+* @index_buffer: position of the buffer
+* @ptr: the position of the char in ascii
+* @num_chars: pointer to the number of characters
+*/
+void print_pointer(char buffer[], int *index_buffer, void *ptr, int *num_chars)
+{
+	unsigned long address = (unsigned long)ptr;
+	char str[20];
+	int i = 0;
+
+	buffer[(*index_buffer)++] = '0';
+	buffer[(*index_buffer)++] = 'x';
+	*num_chars += 2;
+
+	if (address == 0)
+	{
+		buffer[(*index_buffer)++] = '0';
+		(*num_chars)++;
+	}
+	else
+	{
+		while (address > 0)
+		{
+			int digit = address % 16;
+
+			if (digit < 10)
+				str[i++] = digit + '0';
+			else
+				str[i++] = digit - 10 + 'a';
+			address /= 16;
+		}
+		while (--i >= 0)
+		{
+			buffer[(*index_buffer)++] = str[i];
+			(*num_chars)++;
+
+			if (*index_buffer >= BUFFER_SIZE)
+			{
+				print_buffer(buffer, index_buffer);
+			}
+		}
+	}
+	if (*index_buffer >= BUFFER_SIZE)
+	{
+		print_buffer(buffer, index_buffer);
+	}
+}
