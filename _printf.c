@@ -5,7 +5,8 @@
 #define BUFFER_SIZE 1024
 
 void print_buffer(char buffer[], int *index_buffer);
-void print_int(char buffer[], int *index_buffer, int n, int *num_chars);
+void print_int(char buffer[], int *index_buffer, int n, int *num_chars,
+	       int plus_flag, int space_flag);
 void int_to_str(int n, char str[]);
 
 /**
@@ -22,6 +23,7 @@ int _printf(const char *format, ...)
 	int index_buffer = 0;
 	int j = 0;
 	int num_chars = 0;
+	int plus_flag = 0, space_flag = 0, hash_flag = 0;
 
 	if (format == NULL)
 		return (-1);
@@ -36,6 +38,17 @@ int _printf(const char *format, ...)
 			j++;
 			if (format[j] == '\0')
 				break;
+
+			while (format[j] == '+' || format[j] == ' ' || format[j] == '#')
+			{
+				if (format[j] == '+')
+					plus_flag = 1;
+				else if (format[j] == ' ')
+					space_flag = 1;
+				else if (format[j] == '#')
+					hash_flag = 1;
+				j++;
+			}
 
 			if (format[j] == 'c')
 			{
@@ -58,7 +71,7 @@ int _printf(const char *format, ...)
 			{
 				int n = va_arg(args, int);
 
-				print_int(buffer, &index_buffer, n, &num_chars);
+				print_int(buffer, &index_buffer, n, &num_chars, plus_flag, space_flag);
 			}
 			else if (format[j] == 'b')
 			{
@@ -76,19 +89,19 @@ int _printf(const char *format, ...)
 			{
 				unsigned int n = va_arg(args, unsigned int);
 
-				print_octal(buffer, &index_buffer, n, &num_chars);
+				print_octal(buffer, &index_buffer, n, &num_chars, hash_flag);
 			}
 			else if (format[j] == 'x')
 			{
 				unsigned int n = va_arg(args, unsigned int);
 
-				print_hex(buffer, &index_buffer, n, &num_chars, 0);
+				print_hex(buffer, &index_buffer, n, &num_chars, 0, hash_flag);
 			}
 			else if (format[j] == 'X')
 			{
 				unsigned int n = va_arg(args, unsigned int);
 
-				print_hex(buffer, &index_buffer, n, &num_chars, 1);
+				print_hex(buffer, &index_buffer, n, &num_chars, 1, hash_flag);
 			}
 			else if (format[j] == 'S')
 			{
@@ -139,14 +152,26 @@ int _printf(const char *format, ...)
 * @index_buffer: is the current index of the buffer
 * @n: the integer
 * @num_chars: pointer to the number of characters
+* @plus_flag: a plus flag
+* @space_flag: a space flag
 */
 
-void print_int(char buffer[], int *index_buffer, int n, int *num_chars)
+void print_int(char buffer[], int *index_buffer, int n,
+	       int *num_chars, int plus_flag, int space_flag)
 {
 	char str[12];
 	int k;
 
 	int_to_str(n, str);
+
+	if (n >= 0)
+	{
+		if (plus_flag)
+			buffer[(*index_buffer)++] = '+';
+		else if (space_flag)
+			buffer[(*index_buffer)++] = ' ';
+		(*num_chars)++;
+	}
 
 	for (k = 0; str[k]; k++)
 	{
@@ -168,9 +193,7 @@ void print_int(char buffer[], int *index_buffer, int n, int *num_chars)
 
 void int_to_str(int n, char str[])
 {
-	int i = 0, j = 0;
-	int negative_n = 0;
-	int temp;
+	int i = 0, j = 0, negative_n = 0, temp;
 
 	if (n == 0)
 	{
@@ -203,7 +226,6 @@ void int_to_str(int n, char str[])
 		str[i++] = '-';
 	}
 	str[i] = '\0';
-
 	for (j = 0; j < i / 2; j++)
 	{
 		char c = str[j];

@@ -7,12 +7,13 @@
 * @n: The unsigned int to convert
 * @num_chars: Pointer to the number of characters printed
 * @uppercase: Flag to indicate whether the output should be in uppercase
+* @hash_flag: A hash flag
 */
 
 void print_hex(char buffer[], int *index_buffer, unsigned int n,
-	       int *num_chars, int uppercase)
+	       int *num_chars, int uppercase, int hash_flag)
 {
-	char str[20];
+	char str[12];
 	int i = 0;
 	char base = uppercase ? 'A' : 'a';
 
@@ -23,6 +24,12 @@ void print_hex(char buffer[], int *index_buffer, unsigned int n,
 	}
 	else
 	{
+		if (hash_flag)
+		{
+			buffer[(*index_buffer)++] = '0';
+			buffer[(*index_buffer)++] = uppercase ? 'X' : 'x';
+			(*num_chars) += 2;
+		}
 		while (n > 0)
 		{
 			int digit = n % 16;

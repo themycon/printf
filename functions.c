@@ -123,20 +123,28 @@ void print_unsigned_int(char buffer[], int *index_buffer, unsigned int n,
 * @index_buffer: Current index in the buffer
 * @n: The unsigned int to convert
 * @num_chars: Pointer to the number of characters printed
+* @hash_flag: a hash flag
 */
 
 void print_octal(char buffer[], int *index_buffer, unsigned int n,
-		 int *num_chars)
+		 int *num_chars, int hash_flag)
 {
-	char str[11];
+	char str[12];
 	int i = 0, j;
 
 	if (n == 0)
 	{
-		str[i++] = '0';
+		buffer[(*index_buffer)++] = '0';
+		(*num_chars)++;
 	}
 	else
 	{
+		if (hash_flag)
+		{
+			buffer[(*index_buffer)++] = '0';
+			(*num_chars)++;
+		}
+
 		while (n > 0)
 		{
 			str[i++] = (n % 8) + '0';
