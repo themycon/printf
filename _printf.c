@@ -169,6 +169,7 @@ void print_int(char buffer[], int *index_buffer, int n,
 		if (plus_flag)
 		{
 			buffer[(*index_buffer)++] = '+';
+			(*num_chars)++;
 		}
 		else if (space_flag)
 		{
