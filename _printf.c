@@ -7,7 +7,6 @@
 void print_buffer(char buffer[], int *index_buffer);
 void print_int(char buffer[], int *index_buffer, int n, int *num_chars,
 	       int plus_flag, int space_flag);
-void int_to_str(int n, char str[]);
 
 /**
 * _printf - prints on the screen
@@ -24,6 +23,7 @@ int _printf(const char *format, ...)
 	int j = 0;
 	int num_chars = 0;
 	int plus_flag = 0, space_flag = 0, hash_flag = 0;
+	int length_modifier = 0;
 
 	if (format == NULL)
 		return (-1);
@@ -49,6 +49,26 @@ int _printf(const char *format, ...)
 					hash_flag = 1;
 				j++;
 			}
+			if (format[j] == 'h')
+			{
+				length_modifier = 1;
+				j++;
+				if (format[j] == 'h')
+				{
+					length_modifier = 2;
+					j++;
+				}
+			}
+			else if (format[j] == 'l')
+			{
+				length_modifier = 3;
+				j++;
+				if (format[j] == 'l')
+				{
+					length_modifier = 4;
+					j++;
+				}
+			}
 
 			if (format[j] == 'c')
 			{
@@ -69,9 +89,21 @@ int _printf(const char *format, ...)
 			}
 			else if (format[j] == 'd' || format[j] == 'i')
 			{
-				int n = va_arg(args, int);
-
-				print_int(buffer, &index_buffer, n, &num_chars, plus_flag, space_flag);
+				if (length_modifier == 1)
+					print_int(buffer, &index_buffer, (short)va_arg(args, int),
+						  &num_chars, plus_flag, space_flag);
+				else if (length_modifier == 2)
+					print_int(buffer, &index_buffer, (char)va_arg(args, int),
+						  &num_chars, plus_flag, space_flag);
+				else if (length_modifier == 3)
+					print_int(buffer, &index_buffer, va_arg(args, long),
+						  &num_chars, plus_flag, space_flag);
+				else if (length_modifier == 4)
+					print_int(buffer, &index_buffer, va_arg(args, long long),
+						  &num_chars, plus_flag, space_flag);
+				else
+					print_int(buffer, &index_buffer, va_arg(args, int),
+						  &num_chars, plus_flag, space_flag);
 			}
 			else if (format[j] == 'b')
 			{
@@ -81,27 +113,75 @@ int _printf(const char *format, ...)
 			}
 			else if (format[j] == 'u')
 			{
-				unsigned int n = va_arg(args, unsigned int);
-
-				print_unsigned_int(buffer, &index_buffer, n, &num_chars);
+				if (length_modifier == 1)
+					print_unsigned_int(buffer, &index_buffer,
+							   (unsigned short)va_arg(args, unsigned int), &num_chars);
+				else if (length_modifier == 2)
+					print_unsigned_int(buffer, &index_buffer,
+							   (unsigned char)va_arg(args, unsigned int), &num_chars);
+				else if (length_modifier == 3)
+					print_unsigned_int(buffer, &index_buffer,
+							   va_arg(args, unsigned long), &num_chars);
+				else if (length_modifier == 4)
+					print_unsigned_int(buffer, &index_buffer,
+							   va_arg(args, unsigned long long), &num_chars);
+				else
+					print_unsigned_int(buffer, &index_buffer,
+							   va_arg(args, unsigned int), &num_chars);
 			}
 			else if (format[j] == 'o')
 			{
-				unsigned int n = va_arg(args, unsigned int);
-
-				print_octal(buffer, &index_buffer, n, &num_chars, hash_flag);
+				if (length_modifier == 1)
+					print_octal(buffer, &index_buffer, (unsigned short)va_arg(args,
+						    unsigned int), &num_chars, hash_flag);
+				else if (length_modifier == 2)
+					print_octal(buffer, &index_buffer, (unsigned char)va_arg(args,
+						    unsigned int), &num_chars, hash_flag);
+				else if (length_modifier == 3)
+					print_octal(buffer, &index_buffer, va_arg(args,
+						    unsigned long), &num_chars, hash_flag);
+				else if (length_modifier == 4)
+					print_octal(buffer, &index_buffer, va_arg(args,
+						    unsigned long long), &num_chars, hash_flag);
+				else
+					print_octal(buffer, &index_buffer, va_arg(args,
+						    unsigned int), &num_chars, hash_flag);
 			}
 			else if (format[j] == 'x')
 			{
-				unsigned int n = va_arg(args, unsigned int);
-
-				print_hex(buffer, &index_buffer, n, &num_chars, 0, hash_flag);
+				if (length_modifier == 1)
+					print_hex(buffer, &index_buffer, (unsigned short)va_arg(args,
+						  unsigned int), &num_chars, 0, hash_flag);
+				else if (length_modifier == 2)
+					print_hex(buffer, &index_buffer, (unsigned char)va_arg(args,
+						  unsigned int), &num_chars, 0, hash_flag);
+				else if (length_modifier == 3)
+					print_hex(buffer, &index_buffer, va_arg(args,
+						  unsigned long), &num_chars, 0, hash_flag);
+				else if (length_modifier == 4)
+					print_hex(buffer, &index_buffer, va_arg(args,
+						  unsigned long long), &num_chars, 0, hash_flag);
+				else
+					print_hex(buffer, &index_buffer, va_arg(args,
+						  unsigned int), &num_chars, 0, hash_flag);
 			}
 			else if (format[j] == 'X')
 			{
-				unsigned int n = va_arg(args, unsigned int);
-
-				print_hex(buffer, &index_buffer, n, &num_chars, 1, hash_flag);
+				if (length_modifier == 1)
+					print_hex(buffer, &index_buffer, (unsigned short)va_arg(args,
+						  unsigned int), &num_chars, 1, hash_flag);
+				else if (length_modifier == 2)
+					print_hex(buffer, &index_buffer, (unsigned char)va_arg(args,
+						  unsigned int), &num_chars, 1, hash_flag);
+				else if (length_modifier == 3)
+					print_hex(buffer, &index_buffer, va_arg(args,
+						  unsigned long), &num_chars, 1, hash_flag);
+				else if (length_modifier == 4)
+					print_hex(buffer, &index_buffer, va_arg(args,
+						  unsigned long long), &num_chars, 1, hash_flag);
+				else
+					print_hex(buffer, &index_buffer, va_arg(args,
+						  unsigned int), &num_chars, 1, hash_flag);
 			}
 			else if (format[j] == 'S')
 			{
@@ -156,8 +236,8 @@ int _printf(const char *format, ...)
 * @space_flag: a space flag
 */
 
-void print_int(char buffer[], int *index_buffer, int n,
-	       int *num_chars, int plus_flag, int space_flag)
+void print_int(char buffer[], int *index_buffer, int n, int *num_chars,
+	       int plus_flag, int space_flag)
 {
 	char str[12];
 	int k;
@@ -167,15 +247,10 @@ void print_int(char buffer[], int *index_buffer, int n,
 	if (n >= 0)
 	{
 		if (plus_flag)
-		{
 			buffer[(*index_buffer)++] = '+';
-			(*num_chars)++;
-		}
 		else if (space_flag)
-		{
 			buffer[(*index_buffer)++] = ' ';
-			(*num_chars)++;
-		}
+		(*num_chars)++;
 	}
 
 	for (k = 0; str[k]; k++)
@@ -187,56 +262,6 @@ void print_int(char buffer[], int *index_buffer, int n,
 		{
 			print_buffer(buffer, index_buffer);
 		}
-	}
-}
-
-/**
-* int_to_str - converts intergers to a string
-* @n: the integer value
-* @str: buffer stores the new string converted from integer
-*/
-
-void int_to_str(int n, char str[])
-{
-	int i = 0, j = 0, negative_n = 0, temp;
-
-	if (n == 0)
-	{
-		str[i++] = '0';
-		str[i] = '\0';
-		return;
-	}
-	if (n < 0)
-	{
-		negative_n = 1;
-		if (n == -2147483648)
-		{
-			n = 2147483647;
-			str[i++] = (n % 10) + 1 + '0';
-			n /= 10;
-		}
-		else
-		{
-			n = -n;
-		}
-	}
-	while (n != 0)
-	{
-		temp = n % 10;
-		str[i++] = temp + '0';
-		n = n / 10;
-	}
-	if (negative_n)
-	{
-		str[i++] = '-';
-	}
-	str[i] = '\0';
-	for (j = 0; j < i / 2; j++)
-	{
-		char c = str[j];
-
-		str[j] = str[i - j - 1];
-		str[i - j - 1] = c;
 	}
 }
 

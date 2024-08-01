@@ -17,31 +17,9 @@ void print_hex(char buffer[], int *index_buffer, unsigned int n,
 	int i = 0;
 	char base = uppercase ? 'A' : 'a';
 
-	if (n == 0)
-	{
-		buffer[(*index_buffer)++] = '0';
-		(*num_chars)++;
-	}
-	else
-	{
-		if (hash_flag)
-		{
-			buffer[(*index_buffer)++] = '0';
-			buffer[(*index_buffer)++] = uppercase ? 'X' : 'x';
-			(*num_chars) += 2;
-		}
-		while (n > 0)
-		{
-			int digit = n % 16;
+	unsigned_int_to_hex_str(n, str, base);
 
-			if (digit < 10)
-				str[i++] = digit + '0';
-			else
-				str[i++] = digit - 10 + base;
-			n /= 16;
-		}
-
-		while (--i >= 0)
+		for (i = 0; str[i]; i++)
 		{
 			buffer[(*index_buffer)++] = str[i];
 			(*num_chars)++;
@@ -51,7 +29,6 @@ void print_hex(char buffer[], int *index_buffer, unsigned int n,
 				print_buffer(buffer, index_buffer);
 			}
 		}
-	}
 }
 
 /**

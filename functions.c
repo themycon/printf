@@ -90,26 +90,16 @@ void print_string(char buffer[], int *index_buffer, char *s, int *num_chars)
 void print_unsigned_int(char buffer[], int *index_buffer, unsigned int n,
 			int *num_chars)
 {
-	char str[10];
-	int i = 0, j;
+	char str[11];
+	int j;
 
-	if (n == 0)
+	unsigned_int_to_str(n, str);
+
+	for (j = 0; str[j]; j++)
 	{
-		str[i++] = '0';
-	}
-	else
-	{
-		while (n > 0)
-		{
-			str[i++] = (n % 10) + '0';
-			n /= 10;
-		}
-	}
-	for (j = i - 1; j >= 0; j--)
-	{
-		buffer[(*index_buffer)++] = str[j];
+		buffer[(*index_buffer)] = str[j];
+		(*index_buffer)++;
 		(*num_chars)++;
-
 		if (*index_buffer >= BUFFER_SIZE)
 		{
 			print_buffer(buffer, index_buffer);
@@ -130,30 +120,13 @@ void print_octal(char buffer[], int *index_buffer, unsigned int n,
 		 int *num_chars, int hash_flag)
 {
 	char str[12];
-	int i = 0, j;
+	int k;
 
-	if (n == 0)
-	{
-		buffer[(*index_buffer)++] = '0';
-		(*num_chars)++;
-	}
-	else
-	{
-		if (hash_flag)
-		{
-			buffer[(*index_buffer)++] = '0';
-			(*num_chars)++;
-		}
+	unsigned_int_to_octal_str(n, str);
 
-		while (n > 0)
-		{
-			str[i++] = (n % 8) + '0';
-			n /= 8;
-		}
-	}
-	for (j = i - 1; j >= 0; j--)
+	for (k = 0; str[k]; k++)
 	{
-		buffer[(*index_buffer)++] = str[j];
+		buffer[(*index_buffer)++] = str[k];
 		(*num_chars)++;
 
 		if (*index_buffer >= BUFFER_SIZE)

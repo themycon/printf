@@ -18,10 +18,13 @@ void print_binary(char buffer[], int *index_buffer, unsigned int n,
 		  int *num_chars);
 void print_unsigned_int(char buffer[], int *index_buffer, unsigned int n,
 		    int *num_chars);
+void unsigned_int_to_str(unsigned int n, char str[]);
 void print_octal(char buffer[], int *index_buffer, unsigned int n,
 		 int *num_chars, int hash_flag);
+void unsigned_int_to_octal_str(unsigned int n, char str[]);
 void print_hex(char buffer[], int *index_buffer, unsigned int n,
 	       int *num_chars, int uppercase, int hash_flag);
+void unsigned_int_to_hex_str(unsigned int n, char str[], int uppercase);
 void print_special_string(char buffer[], int *index_buffer, const char *str,
 			  int *num_chars);
 void printing_hex_for_special_string(char buffer[], int *index_buffer,
