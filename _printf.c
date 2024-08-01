@@ -63,11 +63,6 @@ int _printf(const char *format, ...)
 			{
 				length_modifier = 3;
 				j++;
-				if (format[j] == 'l')
-				{
-					length_modifier = 4;
-					j++;
-				}
 			}
 
 			if (format[j] == 'c')
@@ -96,10 +91,7 @@ int _printf(const char *format, ...)
 					print_int(buffer, &index_buffer, (char)va_arg(args, int),
 						  &num_chars, plus_flag, space_flag);
 				else if (length_modifier == 3)
-					print_int(buffer, &index_buffer, va_arg(args, long),
-						  &num_chars, plus_flag, space_flag);
-				else if (length_modifier == 4)
-					print_int(buffer, &index_buffer, va_arg(args, long long),
+					print_int(buffer, &index_buffer, (long)va_arg(args, long),
 						  &num_chars, plus_flag, space_flag);
 				else
 					print_int(buffer, &index_buffer, va_arg(args, int),
@@ -122,9 +114,6 @@ int _printf(const char *format, ...)
 				else if (length_modifier == 3)
 					print_unsigned_int(buffer, &index_buffer,
 							   va_arg(args, unsigned long), &num_chars);
-				else if (length_modifier == 4)
-					print_unsigned_int(buffer, &index_buffer,
-							   va_arg(args, unsigned long long), &num_chars);
 				else
 					print_unsigned_int(buffer, &index_buffer,
 							   va_arg(args, unsigned int), &num_chars);
@@ -140,9 +129,6 @@ int _printf(const char *format, ...)
 				else if (length_modifier == 3)
 					print_octal(buffer, &index_buffer, va_arg(args,
 						    unsigned long), &num_chars, hash_flag);
-				else if (length_modifier == 4)
-					print_octal(buffer, &index_buffer, va_arg(args,
-						    unsigned long long), &num_chars, hash_flag);
 				else
 					print_octal(buffer, &index_buffer, va_arg(args,
 						    unsigned int), &num_chars, hash_flag);
@@ -158,9 +144,6 @@ int _printf(const char *format, ...)
 				else if (length_modifier == 3)
 					print_hex(buffer, &index_buffer, va_arg(args,
 						  unsigned long), &num_chars, 0, hash_flag);
-				else if (length_modifier == 4)
-					print_hex(buffer, &index_buffer, va_arg(args,
-						  unsigned long long), &num_chars, 0, hash_flag);
 				else
 					print_hex(buffer, &index_buffer, va_arg(args,
 						  unsigned int), &num_chars, 0, hash_flag);
@@ -176,9 +159,6 @@ int _printf(const char *format, ...)
 				else if (length_modifier == 3)
 					print_hex(buffer, &index_buffer, va_arg(args,
 						  unsigned long), &num_chars, 1, hash_flag);
-				else if (length_modifier == 4)
-					print_hex(buffer, &index_buffer, va_arg(args,
-						  unsigned long long), &num_chars, 1, hash_flag);
 				else
 					print_hex(buffer, &index_buffer, va_arg(args,
 						  unsigned int), &num_chars, 1, hash_flag);

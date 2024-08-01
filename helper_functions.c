@@ -56,7 +56,7 @@ void int_to_str(int n, char str[])
 */
 void unsigned_int_to_str(unsigned int n, char str[])
 {
-	int i = 0;
+	int i = 0, j = 0, k;
 	char temp;
 
 	do {
@@ -65,7 +65,7 @@ void unsigned_int_to_str(unsigned int n, char str[])
 
 	str[i] = '\0';
 
-	for (int j = 0, k = i - 1; j < k; j++, k--)
+	for (j = 0, k = i - 1; j < k; j++, k--)
 	{
 		temp = str[j];
 		str[j] = str[k];
@@ -81,7 +81,7 @@ void unsigned_int_to_str(unsigned int n, char str[])
 */
 void unsigned_int_to_octal_str(unsigned long n, char str[])
 {
-	int i = 0;
+	int i = 0, k;
 	char temp;
 
 	do {
@@ -90,11 +90,11 @@ void unsigned_int_to_octal_str(unsigned long n, char str[])
 
 	str[i] = '\0';
 
-	for (int j = 0, k = i - 1; j < k; j++, k--)
+	for (k = 0; k < i / 2; k++)
 	{
-		temp = str[j];
-		str[j] = str[k];
-		str[k] = temp;
+		temp = str[k];
+		str[k] = str[i - k - 1];
+		str[i- k- 1] = temp;
 	}
 }
 
@@ -106,7 +106,7 @@ void unsigned_int_to_octal_str(unsigned long n, char str[])
 */
 void unsigned_int_to_hex_str(unsigned long n, char str[], int uppercase)
 {
-	int i = 0;
+	int i = 0, j = 0, k;
 	char temp;
 	char base = uppercase ? 'A' : 'a';
 
@@ -121,7 +121,7 @@ void unsigned_int_to_hex_str(unsigned long n, char str[], int uppercase)
 
 	str[i] = '\0';
 
-	for (int j = 0, k = i - 1; j < k; j++, k--)
+	for (j = 0, k = i - 1; j < k; j++, k--)
 	{
 		temp = str[j];
 		str[j] = str[k];

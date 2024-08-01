@@ -19,16 +19,22 @@ void print_hex(char buffer[], int *index_buffer, unsigned int n,
 
 	unsigned_int_to_hex_str(n, str, base);
 
-		for (i = 0; str[i]; i++)
-		{
-			buffer[(*index_buffer)++] = str[i];
-			(*num_chars)++;
+	if (hash_flag && n != 0)
+	{
+		buffer[(*index_buffer)++] = '0';
+		buffer[(*index_buffer)++] = uppercase ? 'X' : 'x';
+		(*num_chars) += 2;
+	}
+	for (i = 0; str[i]; i++)
+	{
+		buffer[(*index_buffer)++] = str[i];
+		(*num_chars)++;
 
-			if (*index_buffer >= BUFFER_SIZE)
-			{
-				print_buffer(buffer, index_buffer);
-			}
+		if (*index_buffer >= BUFFER_SIZE)
+		{
+			print_buffer(buffer, index_buffer);
 		}
+	}
 }
 
 /**

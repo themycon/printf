@@ -124,6 +124,11 @@ void print_octal(char buffer[], int *index_buffer, unsigned int n,
 
 	unsigned_int_to_octal_str(n, str);
 
+	if (hash_flag && n != 0)
+	{
+		buffer[(*index_buffer)++] = '0';
+		(*num_chars)++;
+	}
 	for (k = 0; str[k]; k++)
 	{
 		buffer[(*index_buffer)++] = str[k];
